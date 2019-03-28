@@ -45,6 +45,7 @@ public final class EchoClient {
                 .handler(new ChannelInitializer<SocketChannel>() {
                     @Override
                     public void initChannel(SocketChannel ch) throws Exception {
+                        System.out.println("connected...");
                         ChannelPipeline p = ch.pipeline();
                         if (sslCtx != null) {
                             p.addLast(sslCtx.newHandler(ch.alloc(), HOST, PORT));
@@ -54,13 +55,17 @@ public final class EchoClient {
                     }
                 });
 
+            System.out.println("created..");
+
             // Start the client.
             // 异步连接服务器
             ChannelFuture f = b.connect(HOST, PORT).sync();
+            System.out.println("connected..."); // 连接完成
 
             // Wait until the connection is closed.
             // 异步等待关闭连接channel
             f.channel().closeFuture().sync();
+            System.out.println("closed.."); // 关闭完成
         } finally {
             // Shut down the event loop to terminate all threads.
             // 释放线程池资源
