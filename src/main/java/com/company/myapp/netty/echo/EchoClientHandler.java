@@ -26,14 +26,13 @@ public class EchoClientHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) {
-        System.out.println("client channelActive..");
+        System.out.println("连接激活");
         // 必须存在flush
         ctx.writeAndFlush(firstMessage);
     }
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
-        System.out.println("client channelRead..");
         ctx.write(msg);
     }
 
