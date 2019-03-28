@@ -36,9 +36,12 @@ public final class EchoClient {
         EventLoopGroup group = new NioEventLoopGroup();
         try {
             Bootstrap b = new Bootstrap();
+            // 注册线程池
             b.group(group)
+                // 使用NioSocketChannel来作为连接用的channel类
                 .channel(NioSocketChannel.class)
                 .option(ChannelOption.TCP_NODELAY, true)
+                // 绑定连接初始化器
                 .handler(new ChannelInitializer<SocketChannel>() {
                     @Override
                     public void initChannel(SocketChannel ch) throws Exception {
@@ -52,12 +55,15 @@ public final class EchoClient {
                 });
 
             // Start the client.
+            // 异步连接服务器
             ChannelFuture f = b.connect(HOST, PORT).sync();
 
             // Wait until the connection is closed.
+            // 异步等待关闭连接channel
             f.channel().closeFuture().sync();
         } finally {
             // Shut down the event loop to terminate all threads.
+            // 释放线程池资源
             group.shutdownGracefully();
         }
     }

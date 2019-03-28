@@ -26,6 +26,7 @@ public class EchoClientHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) {
+        // 必须存在flush
         ctx.writeAndFlush(firstMessage);
     }
 
