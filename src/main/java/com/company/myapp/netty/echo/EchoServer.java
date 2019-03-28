@@ -45,6 +45,7 @@ public final class EchoServer {
                 .childHandler(new ChannelInitializer<SocketChannel>() {
                     @Override
                     public void initChannel(SocketChannel ch) throws Exception {
+                        System.out.println("connected...; Client:" + ch.remoteAddress());
                         ChannelPipeline p = ch.pipeline();
                         if (sslCtx != null) {
                             // 客户端触发操作
@@ -58,6 +59,7 @@ public final class EchoServer {
             // Start the server.
             // 服务器异步创建绑定，绑定监听端口
             ChannelFuture f = b.bind(PORT).sync();
+            System.out.println(EchoServer.class + " started and listen on " + f.channel().localAddress());
 
             // Wait until the server socket is closed.
             // 关闭服务器通道
