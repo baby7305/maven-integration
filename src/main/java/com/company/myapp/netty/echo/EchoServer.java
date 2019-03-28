@@ -14,15 +14,15 @@ import io.netty.handler.ssl.util.SelfSignedCertificate;
 /**
  * Echoes back any received data from a client.
  */
-public final class EchoServer {
+public class EchoServer {
 
-    static final boolean SSL = System.getProperty("ssl") != null;
-    static final int PORT = Integer.parseInt(System.getProperty("port", "8007"));
+    public void bind(int port) throws Exception {
 
-    public static void main(String[] args) throws Exception {
+        boolean ssl = System.getProperty("ssl") != null;
+
         // Configure SSL.
         final SslContext sslCtx;
-        if (SSL) {
+        if (ssl) {
             SelfSignedCertificate ssc = new SelfSignedCertificate();
             sslCtx = SslContextBuilder.forServer(ssc.certificate(), ssc.privateKey()).build();
         } else {
@@ -58,7 +58,7 @@ public final class EchoServer {
 
             // Start the server.
             // 服务器异步创建绑定，绑定监听端口
-            ChannelFuture f = b.bind(PORT).sync();
+            ChannelFuture f = b.bind(port).sync();
             System.out.println("开始监听" + f.channel().localAddress());
 
             // Wait until the server socket is closed.
