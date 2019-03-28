@@ -45,7 +45,7 @@ public final class EchoServer {
                 .childHandler(new ChannelInitializer<SocketChannel>() {
                     @Override
                     public void initChannel(SocketChannel ch) throws Exception {
-                        System.out.println("连上客户端" + ch.remoteAddress());
+                        System.out.println("上线客户端" + ch.remoteAddress());
                         ChannelPipeline p = ch.pipeline();
                         if (sslCtx != null) {
                             // 客户端触发操作
