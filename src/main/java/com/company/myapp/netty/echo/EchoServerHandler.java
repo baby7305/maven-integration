@@ -17,12 +17,14 @@ public class EchoServerHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelReadComplete(ChannelHandlerContext ctx) {
+        // 第二种方法：在client端关闭channel连接，这样的话，会触发两次channelReadComplete方法。
         ctx.flush();
     }
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
         // Close the connection when an exception is raised.
+        // 关闭发生异常的连接
         cause.printStackTrace();
         ctx.close();
     }
