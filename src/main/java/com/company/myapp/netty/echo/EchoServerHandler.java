@@ -26,7 +26,6 @@ public class EchoServerHandler extends ChannelInboundHandlerAdapter {
         System.out.println("连接出了问题：" + cause.getMessage());
         // Close the connection when an exception is raised.
         // 关闭发生异常的连接
-        cause.printStackTrace();
         ctx.close();
     }
 }
