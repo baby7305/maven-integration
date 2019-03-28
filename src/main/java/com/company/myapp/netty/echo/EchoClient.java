@@ -15,17 +15,16 @@ import io.netty.handler.ssl.util.InsecureTrustManagerFactory;
  * traffic between the echo client and server by sending the first message to
  * the server.
  */
-public final class EchoClient {
+public class EchoClient {
 
-    static final boolean SSL = System.getProperty("ssl") != null;
-    static final String HOST = System.getProperty("host", "172.29.3.6");
-    static final int PORT = Integer.parseInt(System.getProperty("port", "8007"));
-    static final int SIZE = Integer.parseInt(System.getProperty("size", "256"));
+    public void connect(String host, int port) throws Exception {
 
-    public static void main(String[] args) throws Exception {
+        boolean ssl = System.getProperty("ssl") != null;
+        int size = Integer.parseInt(System.getProperty("size", "256"));
+
         // Configure SSL.git
         final SslContext sslCtx;
-        if (SSL) {
+        if (ssl) {
             sslCtx = SslContextBuilder.forClient()
                 .trustManager(InsecureTrustManagerFactory.INSTANCE).build();
         } else {
@@ -48,7 +47,7 @@ public final class EchoClient {
                         System.out.println("开始连接");
                         ChannelPipeline p = ch.pipeline();
                         if (sslCtx != null) {
-                            p.addLast(sslCtx.newHandler(ch.alloc(), HOST, PORT));
+                            p.addLast(sslCtx.newHandler(ch.alloc(), host, port));
                         }
                         //p.addLast(new LoggingHandler(LogLevel.INFO));
                         p.addLast(new EchoClientHandler());
@@ -59,7 +58,7 @@ public final class EchoClient {
 
             // Start the client.
             // 异步连接服务器
-            ChannelFuture f = b.connect(HOST, PORT).sync();
+            ChannelFuture f = b.connect(host, port).sync();
             System.out.println("连接完成");
 
             // Wait until the connection is closed.
