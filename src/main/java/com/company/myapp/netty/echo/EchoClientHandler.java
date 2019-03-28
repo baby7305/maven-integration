@@ -44,7 +44,7 @@ public class EchoClientHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
         // Close the connection when an exception is raised.
-        cause.printStackTrace();
+        System.out.println("连接出了问题" + cause.getMessage());
         ctx.close();
     }
 }
