@@ -17,10 +17,19 @@ import io.netty.handler.ssl.util.InsecureTrustManagerFactory;
  */
 public class EchoClient {
 
+    public Integer getSize() {
+        return size;
+    }
+
+    public void setSize(Integer size) {
+        this.size = size;
+    }
+
+    private Integer size = 256;
+
     public void connect(String host, int port) throws Exception {
 
         boolean ssl = System.getProperty("ssl") != null;
-        int size = Integer.parseInt(System.getProperty("size", "256"));
 
         // Configure SSL.git
         final SslContext sslCtx;

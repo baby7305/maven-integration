@@ -18,7 +18,8 @@ public class EchoClientHandler extends ChannelInboundHandlerAdapter {
      * Creates a client-side handler.
      */
     public EchoClientHandler() {
-        firstMessage = Unpooled.buffer(EchoClient.SIZE);
+        Integer size = new EchoClient().getSize();
+        firstMessage = Unpooled.buffer(size);
         for (int i = 0; i < firstMessage.capacity(); i++) {
             firstMessage.writeByte((byte) i);
         }
