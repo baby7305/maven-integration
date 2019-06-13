@@ -12,11 +12,18 @@ public class StaticFile {
         /**
          * 统计某个目录下所有各种文件类型的数量
          */
-        HashMap<String, FileCnt> myFilemap = new HashMap<String, FileCnt>();
-        staticFile(myFilemap, "F:\\后台资源\\英文版各行业模板-解压后\\英文版各行业模板第二套\\Deal\\H1");
-        myFilemap.forEach((x, y) -> {
-            System.out.println("filetype : " + x + " num :" + y);
-        });
+        for (int i = 0; i < 100; i++) {
+            String path = "F:\\后台资源\\英文版各行业模板-解压后\\英文版各行业模板第二套\\Deal\\H";
+            path = path + i;
+            System.out.println("目录" + i);
+
+            HashMap<String, FileCnt> myFilemap = new HashMap<String, FileCnt>();
+            staticFile(myFilemap, path);
+
+            myFilemap.forEach((x, y) -> {
+                System.out.println("filetype : " + x + " num :" + y);
+            });
+        }
     }
 
     /**
