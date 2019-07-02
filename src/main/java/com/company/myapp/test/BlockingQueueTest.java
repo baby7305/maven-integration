@@ -10,7 +10,7 @@ public class BlockingQueueTest {
      */
     public static class Basket{
         // 队列，能够容纳3个队列数据
-        BlockingQueue<String> basket = new ArrayBlockingQueue<String>(3);
+        BlockingQueue<String> basket = new ArrayBlockingQueue<String>(10);
 
         // 生产队列数据，放入队列
         public void produce() throws InterruptedException{
@@ -64,8 +64,6 @@ public class BlockingQueueTest {
                         System.out.println("消费者消费队列数据完毕："
                             + System.currentTimeMillis());
                         System.out.println("消费完后有队列数据："+basket.getAppleNumber()+"个");
-                        // 休眠1000ms
-                        Thread.sleep(1000);
                     }
                 } catch (InterruptedException ex) {
                 }
