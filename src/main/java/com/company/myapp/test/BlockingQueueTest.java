@@ -6,20 +6,20 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 public class BlockingQueueTest {
     /**
-     定义装苹果的篮子
+     定义装队列数据的队列
      */
     public static class Basket{
-        // 篮子，能够容纳3个苹果
+        // 队列，能够容纳3个队列数据
         BlockingQueue<String> basket = new ArrayBlockingQueue<String>(3);
 
-        // 生产苹果，放入篮子
+        // 生产队列数据，放入队列
         public void produce() throws InterruptedException{
-            // put方法放入一个苹果，若basket满了，等到basket有位置
+            // put方法放入一个队列数据，若basket满了，等到basket有位置
             basket.put("An apple");
         }
-        // 消费苹果，从篮子中取走
+        // 消费队列数据，从队列中取走
         public String consume() throws InterruptedException{
-            // get方法取出一个苹果，若basket为空，等到basket有苹果为止
+            // get方法取出一个队列数据，若basket为空，等到basket有队列数据为止
             String apple = basket.take();
             return apple;
         }
@@ -31,20 +31,20 @@ public class BlockingQueueTest {
     }
     //　测试方法
     public static void testBasket() {
-        // 建立一个装苹果的篮子
+        // 建立一个装队列数据的队列
         final Basket basket = new Basket();
-        // 定义苹果生产者
+        // 定义队列数据生产者
         class Producer implements Runnable {
             public void run() {
                 try {
                     while (true) {
-                        // 生产苹果
-                        System.out.println("生产者准备生产苹果："
+                        // 生产队列数据
+                        System.out.println("生产者准备生产队列数据："
                             + System.currentTimeMillis());
                         basket.produce();
-                        System.out.println("生产者生产苹果完毕："
+                        System.out.println("生产者生产队列数据完毕："
                             + System.currentTimeMillis());
-                        System.out.println("生产完后有苹果："+basket.getAppleNumber()+"个");
+                        System.out.println("生产完后有队列数据："+basket.getAppleNumber()+"个");
                         // 休眠300ms
                         Thread.sleep(300);
                     }
@@ -52,18 +52,18 @@ public class BlockingQueueTest {
                 }
             }
         }
-        // 定义苹果消费者
+        // 定义队列数据消费者
         class Consumer implements Runnable {
             public void run() {
                 try {
                     while (true) {
-                        // 消费苹果
-                        System.out.println("消费者准备消费苹果："
+                        // 消费队列数据
+                        System.out.println("消费者准备消费队列数据："
                             + System.currentTimeMillis());
                         basket.consume();
-                        System.out.println("消费者消费苹果完毕："
+                        System.out.println("消费者消费队列数据完毕："
                             + System.currentTimeMillis());
-                        System.out.println("消费完后有苹果："+basket.getAppleNumber()+"个");
+                        System.out.println("消费完后有队列数据："+basket.getAppleNumber()+"个");
                         // 休眠1000ms
                         Thread.sleep(1000);
                     }
