@@ -45,8 +45,6 @@ public class BlockingQueueTest {
                         System.out.println("生产者生产队列数据完毕："
                             + System.currentTimeMillis());
                         System.out.println("生产完后有队列数据："+basket.getAppleNumber()+"个");
-                        // 休眠300ms
-                        Thread.sleep(300);
                     }
                 } catch (InterruptedException ex) {
                 }
